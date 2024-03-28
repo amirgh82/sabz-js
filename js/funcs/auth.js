@@ -1,3 +1,5 @@
+import { showSwal } from './utils.js'
+
 const register = event => {
   const nameInput = document.querySelector('#name')
   const userNameInput = document.querySelector('#username')
@@ -23,19 +25,21 @@ const register = event => {
   })
     .then(res => {
       if (res.status === 201) {
-        swal({
-          title: 'ثبت نام با موفقیت انجام شد قارداش',
-          icon: 'success',
-          button: 'بریم صفحه اصلی'
-        }).then(result => {
-          location.href = 'index.html'
-        })
+        showSwal(
+          'ثبت نام با موفقیت انجام شد قارداش',
+          'success',
+          'بریم صفحه اصلی',
+          result => {
+            location.href = 'index.html'
+          }
+        )
       } else if (res.status === 409) {
-        swal({
-          title: 'مشکل داره اطلاعاتت ، جیگر',
-          icon: 'error',
-          button: 'بریم درستش کنیم'
-        })
+        showSwal(
+          'مشکل داره اطلاعاتت ، جیگر',
+          'error',
+          'بریم درستش کنیم',
+          () => {}
+        )
       }
       return res.json()
     })
