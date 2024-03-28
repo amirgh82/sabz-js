@@ -1,4 +1,4 @@
-import { showSwal } from './utils.js'
+import { showSwal, saveIntoLocalStorage } from './utils.js'
 
 const register = event => {
   const nameInput = document.querySelector('#name')
@@ -43,7 +43,9 @@ const register = event => {
       }
       return res.json()
     })
-    .then(data => console.log(data))
+    .then(result => {
+      saveIntoLocalStorage('user', { token: result.accessToken })
+    })
 }
 
 export { register }
