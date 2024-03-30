@@ -1,6 +1,6 @@
 import { showSwal, saveIntoLocalStorage } from './utils.js'
 
-const register = event => {
+const register = () => {
   const nameInput = document.querySelector('#name')
   const userNameInput = document.querySelector('#username')
   const emailInput = document.querySelector('#email')
@@ -48,4 +48,41 @@ const register = event => {
     })
 }
 
-export { register }
+const login = () => {
+  const identifierInput = document.querySelector('#identifier')
+  const passwordInput = document.querySelector('#password')
+
+  const userInfo = {
+    identifier: identifierInput.value.trim(),
+    password: passwordInput.value.trim()
+  }
+
+  console.log(userInfo)
+
+  fetch(`http://localhost:4000/v1/auth/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userInfo)
+  })
+    .then(res => {
+      if (res.status === 401) {
+        showSwal(
+          'اطلاعات کاربر یافت نشد',
+          'error',
+          'بریم واسه درست کردن',
+          () => {}
+        )
+      } else if (res.status === 200) {
+        showSwal('وارد شدی قد عسل', 'success', 'بریم صفحه اصلی', () => {
+          location.href = 'index.html'
+        })
+      }
+    })
+    .then(result => {
+      saveIntoLocalStorage('user', { token: result.accessToken })
+    })
+}
+
+export { register, login }
