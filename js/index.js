@@ -1,38 +1,42 @@
-const $ = document;
-const landingTitle = $.querySelector(".landing__title");
-const landingCoursesCount = $.querySelector("#courses-count");
-const landingMinutesCount = $.querySelector("#minutes-counter");
-const landingUsersCount = $.querySelector("#users-counter");
+import { getAndShowAllCourses } from './funcs/shared.js'
 
-window.addEventListener("load", () => {
-  let landingText = "ما به هر قیمتی دوره آموزشی تولید نمی کنیم !";
-  let typeIndex = 0;
+const $ = document
+const landingTitle = $.querySelector('.landing__title')
+const landingCoursesCount = $.querySelector('#courses-count')
+const landingMinutesCount = $.querySelector('#minutes-counter')
+const landingUsersCount = $.querySelector('#users-counter')
 
-  typeWriter(landingText, typeIndex);
-  makeCounter(40, landingCoursesCount);
-  makeCounter(3_320, landingMinutesCount);
-  makeCounter(3_071, landingUsersCount);
-});
+window.addEventListener('load', () => {
+  let landingText = 'ما به هر قیمتی دوره آموزشی تولید نمی کنیم !'
+  let typeIndex = 0
 
-function typeWriter(text, index) {
+  typeWriter(landingText, typeIndex)
+  makeCounter(40, landingCoursesCount)
+  makeCounter(3_320, landingMinutesCount)
+  makeCounter(3_071, landingUsersCount)
+
+  getAndShowAllCourses()
+})
+
+function typeWriter (text, index) {
   if (index < text.length) {
-    landingTitle.innerHTML += text[index];
-    index++;
+    landingTitle.innerHTML += text[index]
+    index++
   }
 
   setTimeout(() => {
-    typeWriter(text, index);
-  }, 100);
+    typeWriter(text, index)
+  }, 100)
 }
 
-function makeCounter(max, elem) {
-  let counter = 0;
+function makeCounter (max, elem) {
+  let counter = 0
   const interval = setInterval(() => {
     if (counter === max) {
-      clearInterval(interval);
+      clearInterval(interval)
     }
 
-    elem.innerHTML = counter;
-    counter++;
-  }, 0.5);
+    elem.innerHTML = counter
+    counter++
+  }, 0.5)
 }
