@@ -266,6 +266,7 @@ const getAndShowAllArticles = async () => {
       `<div class="col-4">
     <div class="article-card">
       <div class="article-card__header">
+      <img src=http://localhost:4000/courses/covers/${article.cover} class="article-card__img" alt="تصاویر مقاله"/>
       </div>
       <div class="article-card__content">
         <a href="${article.shortName}" class="article-card__link">
@@ -288,7 +289,6 @@ const getAndShowAllMenus = async () => {
   const res = await fetch(`http://localhost:4000/v1/menus`)
   const allMenus = await res.json()
 
-  console.log(allMenus)
   allMenus.map(menu => {
     menusWrapper.insertAdjacentHTML(
       'beforeend',
