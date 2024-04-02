@@ -107,8 +107,6 @@ const getPopularCourses = async () => {
   const res = await fetch(`http://localhost:4000/v1/courses/popular`)
   const popularCourses = await res.json()
 
-  console.log(popularCourses)
-
   popularCourses.map(course => {
     popularCourseWrapper.insertAdjacentHTML(
       'beforeend',
@@ -176,9 +174,92 @@ const getPopularCourses = async () => {
   })
 }
 
+const getPresellCourses = async () => {
+  const presellCoursesWrapper = document.querySelector('#swiper-wrapper')
+
+  const res = await fetch(`http://localhost:4000/v1/courses/presell`)
+  const presellCourses = await res.json()
+
+  console.log(presellCourses)
+
+  presellCourses.map(course => {
+    presellCoursesWrapper.insertAdjacentHTML(
+      'beforeend',
+      `<div class="swiper-slide">
+    <div class="course-box">
+      <a href="${course.shortName}">
+        <img
+          src="images/courses/fareelancer.png"
+          alt="Course img"
+          class="course-box__img"
+        />
+      </a>
+      <div class="course-box__main">
+        <a href="${course.shortName}" class="course-box__title">${
+        course.name
+      }</a>
+        <div class="course-box__rating-teacher">
+          <div class="course-box__teacher">
+            <i
+              class="fas fa-chalkboard-teacher course-box__teacher-icon"></i>
+            <a href="#" class="course-box__teacher-link">${course.creator}</a>
+          </div>
+          <div class="course-box__rating">
+            <img
+              src="images/svgs/star.svg"
+              alt="rating"
+              class="course-box__star"
+            />
+            <img
+              src="images/svgs/star_fill.svg"
+              alt="rating"
+              class="course-box__star"
+            />
+            <img
+              src="images/svgs/star_fill.svg"
+              alt="rating"
+              class="course-box__star"
+            />
+            <img
+              src="images/svgs/star_fill.svg"
+              alt="rating"
+              class="course-box__star"
+            />
+            <img
+              src="images/svgs/star_fill.svg"
+              alt="rating"
+              class="course-box__star"
+            />
+          </div>
+        </div>
+
+        <div class="course-box__status">
+          <div class="course-box__users">
+            <i class="fas fa-users course-box__users-icon"></i>
+            <span class="course-box__users-text">${course.registers}</span>
+          </div>
+          <span class="course-box__price">${
+            !course.price ? 'رایگان' : course.price.toLocaleString()
+          }</span>
+        </div>
+      </div>
+
+      <div class="course-box__footer">
+        <a href="#" class="course-box__footer-link">
+          مشاهده اطلاعات
+          <i class="fas fa-arrow-left course-box__footer-icon"></i>
+        </a>
+      </div>
+    </div>
+  </div>`
+    )
+  })
+}
+
 export {
   showUserNameInNabar,
   renderTopbarMenus,
   getAndShowAllCourses,
-  getPopularCourses
+  getPopularCourses,
+  getPresellCourses
 }

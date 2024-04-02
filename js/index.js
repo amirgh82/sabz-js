@@ -1,4 +1,8 @@
-import { getAndShowAllCourses , getPopularCourses } from './funcs/shared.js'
+import {
+  getAndShowAllCourses,
+  getPopularCourses,
+  getPresellCourses
+} from './funcs/shared.js'
 
 const $ = document
 const landingTitle = $.querySelector('.landing__title')
@@ -17,6 +21,7 @@ window.addEventListener('load', () => {
 
   getAndShowAllCourses()
   getPopularCourses()
+  getPresellCourses()
 })
 
 function typeWriter (text, index) {
