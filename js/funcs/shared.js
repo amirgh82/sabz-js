@@ -260,8 +260,6 @@ const getAndShowAllArticles = async () => {
   const res = await fetch(`http://localhost:4000/v1/articles`)
   const allArticles = await res.json()
 
-  console.log(allArticles)
-
   allArticles.slice(0, 3).map(article => {
     articlesWrapper.insertAdjacentHTML(
       'beforeend',
@@ -284,11 +282,43 @@ const getAndShowAllArticles = async () => {
   })
 }
 
+const getAndShowAllMenus = async () => {
+  const menusWrapper = document.querySelector('#menu-wrapper')
+
+  const res = await fetch(`http://localhost:4000/v1/menus`)
+  const allMenus = await res.json()
+
+  console.log(allMenus)
+  allMenus.map(menu => {
+    menusWrapper.insertAdjacentHTML(
+      'beforeend',
+      `<li class="main-header__item">
+        <a href="${menu.href}" class="main-header__link">${menu.title}
+        ${
+          menu.submenus.length !== 0
+            ? `<i class="fas fa-angle-down main-header__link-icon"></i>
+          <ul class="main-header__dropdown">
+          ${menu.submenus.map(
+            submenu => `<li class="main-header__dropdown-item">
+            <a href="${submenu.href}" class="main-header__dropdown-link">${submenu.title}</a>
+          </li>`
+          )}
+            </ul>`
+            : ''
+        }
+
+       </a>
+      </li>`
+    )
+  })
+}
+
 export {
   showUserNameInNabar,
   renderTopbarMenus,
   getAndShowAllCourses,
   getPopularCourses,
   getPresellCourses,
-  getAndShowAllArticles
+  getAndShowAllArticles,
+  getAndShowAllMenus
 }
