@@ -1,7 +1,8 @@
 import {
   getAndShowAllCourses,
   getPopularCourses,
-  getPresellCourses
+  getPresellCourses,
+  getAndShowAllArticles
 } from './funcs/shared.js'
 
 const $ = document
@@ -22,6 +23,7 @@ window.addEventListener('load', () => {
   getAndShowAllCourses()
   getPopularCourses()
   getPresellCourses()
+  getAndShowAllArticles()
 })
 
 function typeWriter (text, index) {

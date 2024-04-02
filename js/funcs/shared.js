@@ -180,8 +180,6 @@ const getPresellCourses = async () => {
   const res = await fetch(`http://localhost:4000/v1/courses/presell`)
   const presellCourses = await res.json()
 
-  console.log(presellCourses)
-
   presellCourses.map(course => {
     presellCoursesWrapper.insertAdjacentHTML(
       'beforeend',
@@ -256,10 +254,41 @@ const getPresellCourses = async () => {
   })
 }
 
+const getAndShowAllArticles = async () => {
+  const articlesWrapper = document.querySelector('#article-wrapper')
+
+  const res = await fetch(`http://localhost:4000/v1/articles`)
+  const allArticles = await res.json()
+
+  console.log(allArticles)
+
+  allArticles.slice(0, 3).map(article => {
+    articlesWrapper.insertAdjacentHTML(
+      'beforeend',
+      `<div class="col-4">
+    <div class="article-card">
+      <div class="article-card__header">
+      </div>
+      <div class="article-card__content">
+        <a href="${article.shortName}" class="article-card__link">
+          ${article.title}
+        </a>
+        <p class="article-card__text">
+      ${article.description}
+        </p>
+        <a href="${article.shortName}" class="article-card__btn">بیشتر بخوانید</a>
+      </div>
+    </div>
+  </div>`
+    )
+  })
+}
+
 export {
   showUserNameInNabar,
   renderTopbarMenus,
   getAndShowAllCourses,
   getPopularCourses,
-  getPresellCourses
+  getPresellCourses,
+  getAndShowAllArticles
 }
